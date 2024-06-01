@@ -1,4 +1,9 @@
-from utils.data import Market
+from data.data import Market
 
-# Market('goau4.sa', '2012-05-15', '2022-05-15', yf=True).get_price
-Market('goau4.sa', period='1y', progress=False).get_price
+from utils import PATH
+
+from strats.template import Template
+
+# data = Market('goau4.sa', '2012-06-15', '2022-06-15').get_price
+# print(data)
+Template('goau4.sa', '2012-06-15', '2022-06-15').main()

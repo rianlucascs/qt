@@ -5,7 +5,7 @@ from yfinance import download
 from datetime import date, datetime, timedelta
 from os.path import exists
 from os import mkdir
-from pandas import DataFrame
+from pandas import DataFrame, to_datetime
 
 class Market:
 
@@ -101,6 +101,13 @@ class Market:
         data = DataFrame(data, index=['Date', self.column_replace]).T
         return data
 
+    def _adjust_values(self, data):
+        data['Date'] = to_datetime(data['Date'])
+        data[self.column_replace] = data[self.column_replace].astype(float)
+        data = data.dropna()
+        data = data.set_index('Date')
+        return data
+
     @property
     def get_price(self):
         """
@@ -115,6 +122,7 @@ class Market:
                 print(f'Market.get_price writhing_data file="{name}"')
         else:
             data = self._reading_data(name)
+            data = self._adjust_values(data)
             if self.progress:
                 print(f'Market.get_price reading_data file="{name}"')
         return data
