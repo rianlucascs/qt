@@ -1,6 +1,6 @@
 from warnings import filterwarnings
 from dataclasses import dataclass
-from data.data import Market
+from data import Market
 from numpy import where
 from pandas import DataFrame
 from sklearn.tree import DecisionTreeClassifier
@@ -67,7 +67,10 @@ class Template:
         data = self.market_data_train_test
         data = self._initial_processing(data)
         split_data = self._split_data(data)
-        coef = Models(self.name_model, self.config_model, split_data[0]).main()
+        try:
+            coef = Models(self.name_model, self.config_model, split_data[0]).main()
+        except ValueError:
+            return ('ValueError', f'ValueError: _get_coef.Models.{self.name_model}')
         return coef
     
     def _processes_result(self, data):
@@ -116,7 +119,7 @@ class Template:
     def _std_serie_retorno(self, data):
         return data['serie_retorno'].std()
 
-    def _metric(self, data, _data):
+    def _metric_result_during_creation(self, data, _data):
         __data = self._split_data(data)
         return [
             x:= accuracy_score(__data[0]['alvo_bin'], __data[0]['previsto']) * 100,
@@ -138,18 +141,33 @@ class Template:
         data = self._initial_processing(_data)
         split_data = self._split_data(data)
         coef = self._get_coef
+        if type(coef) == tuple:
+            return coef
         predict_train = coef.predict(split_data[0][split_data[0].columns[5:]])
         predict_test = coef.predict(split_data[1][split_data[1].columns[5:]])
         split_data[0]['previsto'] = predict_train
         split_data[1]['previsto'] = predict_test
         data = self._processes_result(split_data)
-        metric = self._metric(data, _data)
+        metric = self._metric_result_during_creation(data, _data)
         return [data, metric]
-        
+    
+    def metric_result_model_after_creation(self, data):
+        """Metricas referentes aos resultados pós treino"""
+        return [
+            self._number_of_signals(data, None),
+            self._mean_serie_retorno(data),
+            self._std_serie_retorno(data)
+        ]
+
     @property
     def result_model_after_creation(self):
         data = self.market_data
         data = self._initial_processing(data)
         coef = self._get_coef
+        if type(coef) == tuple:
+            return coef
         data['previsto'] = coef.predict(data[data.columns[5:]])
-        return [data, ]
+        data = self._processes_result(data)
+        _data = data[len(self.market_data_train_test):]
+        metric = self.metric_result_model_after_creation(_data)
+        return [data, metric]
