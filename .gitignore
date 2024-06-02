@@ -5,3 +5,4 @@ account.py
 .tmp.driveupload
 .tmp.drivedownload
 *.bat
+data/prices/
