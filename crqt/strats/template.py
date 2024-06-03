@@ -70,7 +70,7 @@ class Template:
         try:
             coef = Models(self.name_model, self.config_model, split_data[0]).main()
         except ValueError:
-            return ('ValueError', f'ValueError: _get_coef.Models.{self.name_model}')
+            return ('', 'ValueError')
         return coef
     
     def _processes_result(self, data):
