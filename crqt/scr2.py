@@ -49,6 +49,7 @@ class FeaturesManagement:
         self.list_features = ListFeatures(features).number()
         self.name = ticker.upper().split('.')[0]
         self._path_results = f'{path[0]}\\data\\features\\results'
+        self.name_config_model = ' '.join(list(map(str, config_model.values())))
 
     def writing_json(self, path, data):
         with open(path, 'a') as file:
@@ -84,15 +85,15 @@ class FeaturesManagement:
         if not exists(path):
             mkdir(path)
 
-        _path = f'{path}\\{self.name_model}'
-        if not exists(_path):
-            mkdir(_path)
-
-        path = f'{_path}\\config_model.json'
+        path = f'{path}\\{self.name_model}'
         if not exists(path):
-            self.writing_json(path, self.config_model)
+            mkdir(path)
 
-        return f'{_path}\\results.txt'
+        path = f'{path}\\{self.name_config_model}'
+        if not exists(path):
+            mkdir(path)
+
+        return f'{path}\\results.txt'
     
     def main(self):
         path = self.create_folders_results()
@@ -142,19 +143,21 @@ def combinations_in_rane(k, x=None, y=None):
     return all_combinations
 
 class CombinationsByElementQuantity:
-    print(20*'\n'+f'# Combinações Possíveis em Relação ao Número de Elementos (1 a {len(inventory_features())+1})\n')
-    for k in range(2, 6):
-        c = number_of_combinations(k=k)
-        print(f'{k}'.ljust(3), '|', f'{c:,.0f}'.ljust(13), '|', num2words(c, lang='pt_BR').title())
-    print()
+
+    def message():
+        print(20*'\n'+f'# Combinações Possíveis em Relação ao Número de Elementos (1 a {len(inventory_features())+1})\n')
+        for k in range(2, 6):
+            c = number_of_combinations(k=k)
+            print(f'{k}'.ljust(3), '|', f'{c:,.0f}'.ljust(13), '|', num2words(c, lang='pt_BR').title())
+        print()
 
 if __name__ == '__main__':
-    CombinationsByElementQuantity
+    CombinationsByElementQuantity.message()
     FeaturesManagement(
-        ticker='goau4.sa', 
+        ticker='vale3.sa', 
         start='2012-05-15', 
         end='2022-05-15',
         # features=inventory_features()
         # features=[[22, 12]]
-        features=combinations_in_rane(k=2)
+        features=combinations_in_rane(k=3)
         ).main()
