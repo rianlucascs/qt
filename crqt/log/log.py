@@ -1,0 +1,4 @@
+
+
+def log(path):
+    pass

@@ -18,6 +18,7 @@ from math import comb
 from itertools import combinations_with_replacement
 from sys import stdout
 from num2words import num2words
+from yfinance import download
 
 class ListFeatures:
     def __init__(self, features=None):
@@ -151,13 +152,25 @@ class CombinationsByElementQuantity:
             print(f'{k}'.ljust(3), '|', f'{c:,.0f}'.ljust(13), '|', num2words(c, lang='pt_BR').title())
         print()
 
+def start_date_ticker(ticker):
+    data = download(ticker, period='max', progress=False)
+    return str(data.index[0])[:10]
+
 if __name__ == '__main__':
     CombinationsByElementQuantity.message()
+
+    k = 2
+    ticker = 'azul4.sa'
+
+    start = start_date_ticker(ticker)
+    end='2023-06-15'
+
+    # features=inventory_features()
+    features=combinations_in_rane(k=k)
+
     FeaturesManagement(
-        ticker='vale3.sa', 
-        start='2012-05-15', 
-        end='2022-05-15',
-        # features=inventory_features()
-        # features=[[22, 12]]
-        features=combinations_in_rane(k=3)
+        ticker=ticker, 
+        start = start,
+        end=end,
+        features=features
         ).main()
