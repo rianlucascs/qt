@@ -1,5 +1,4 @@
 
-from dataclasses import dataclass
 from sys import path
 from yfinance import download
 from datetime import date, datetime, timedelta
@@ -9,7 +8,7 @@ from pandas import DataFrame, to_datetime
 
 class Market:
 
-    def __init__(self, ticker, start=None, end=None, column='Adj Close', period='1y', progress=False):
+    def __init__(self, ticker='', start=None, end=None, column='Adj Close', period='1y', progress=False):
         self.ticker = ticker
         self.start = start
         self.end = end

@@ -9,7 +9,6 @@
 
 from utils import PATH
 from sys import path
-from dataclasses import dataclass
 from strats.template import Template
 from json import load, dump
 from os.path import exists
@@ -157,9 +156,13 @@ def start_date_ticker(ticker):
     return str(data.index[0])[:10]
 
 if __name__ == '__main__':
+
+    """
+    Cria combinações com as features disponíveis
+    """
     CombinationsByElementQuantity.message()
 
-    k = 2
+    k = 1
     ticker = 'azul4.sa'
 
     start = start_date_ticker(ticker)
@@ -170,7 +173,7 @@ if __name__ == '__main__':
 
     FeaturesManagement(
         ticker=ticker, 
-        start = start,
+        start=start,
         end=end,
         features=features
         ).main()

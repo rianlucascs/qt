@@ -24,18 +24,16 @@ class Models:
         return Tree 
     
     def main(self):
-        on_models = ['DecisionTreeClassifier']
+        on_models = ['DecisionTreeClassifier'] # < --- !
         if self.name_model in on_models:
             match self.name_model:
                 case 'DecisionTreeClassifier':
                     return self._coef_decision_tree_classifier
-
         else:
             raise TypeError
 
 class Template:
     
-
     def __init__(self, ticker, start, end, features=[], column='Adj Close', name_model='DecisionTreeClassifier',
                   config_model={'max_depth': 3, 'criterion': 'gini'}):
         self.ticker = ticker

@@ -1,6 +1,11 @@
 
+from sys import path
+from os.path import exists
 
-def writing(path, message):
-    with open(path, 'a', encoding='utf-8') as file:
+fpath = lambda fpath: f'{path[0]}\\{fpath}'
+
+def writing(path_, message):
+
+    with open(fpath(path_), 'a', encoding='utf-8') as file:
         file.write(message)
     return None
