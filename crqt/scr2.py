@@ -1,9 +1,28 @@
 """
 # scr2
 
-- Armazenar a metrica do treinamento e o teste do modelo
+# Descrição
+
 - Gerar combinações de features 
+- Armazenar a metrica do treinamento e o teste do modelo
 - Sistema padronizado de diretórios e arquivos
+
+# Ojetivo
+
+- Encontrar combinações de 2 features para iniciar o processo de otimização
+- encontrar as melhores features iniciais para cada ativo
+
+# Obs
+
+- Não é feito mais de 2 combinações pq a partir de 3 elementos a quantidade
+- de combinações possíveis é elta.
+
+# Combinações Possíveis em Relação ao Número de Elementos (1 a 158)
+
+2   | 12,403        | Doze Mil, Quatrocentos E Três
+3   | 644,956       | Seiscentos E Quarenta E Quatro Mil, Novecentos E Cinquenta E Seis
+4   | 24,992,045    | Vinte E Quatro Milhões, Novecentos E Noventa E Dois Mil E Quarenta E Cinco
+5   | 769,754,986   | Setecentos E Sessenta E Nove Milhões, Setecentos E Cinquenta E Quatro Mil, Novecentos E Oite
 
 """
 
@@ -162,7 +181,7 @@ if __name__ == '__main__':
     """
     CombinationsByElementQuantity.message()
 
-    k = 1
+    k = 2
     ticker = 'azul4.sa'
 
     start = start_date_ticker(ticker)

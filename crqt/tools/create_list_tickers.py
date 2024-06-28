@@ -21,7 +21,8 @@ class TickersMt5:
                 key2 = s.description.split(' ')
                 if 'ON' in key2 or 'PN' in key2:
                     if not s.name[-1].isalpha():
-                        lista_sybols.append(s.name) 
+                        if not s.name[:2] == 'TF':
+                            lista_sybols.append(s.name) 
         return lista_sybols
     
     def get(self):
