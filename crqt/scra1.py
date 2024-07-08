@@ -5,7 +5,7 @@ from pandas import DataFrame
 
 filterwarnings('ignore')
 
-__processing_data__ = 'scr2'
+__processing_data__ = 'scr2.py'
 
 class DataTransformer:
     

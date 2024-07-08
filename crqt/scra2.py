@@ -23,7 +23,7 @@ from numpy import where
 __processing_data__ = 'scr3'
 
 pass_ticker = ['MSPA4.SA', 'MTSA3.SA', 'ODER4.SA', 'SHUL3.SA', 'MAPT4.SA', 'MTSA4.SA', 'EKTR4.SA', 'CEEB3.SA',
-               'FIEI3.SA', 'TEKA4.SA', 'BGIP4.SA']
+               'FIEI3.SA', 'TEKA4.SA', 'BGIP4.SA', 'MNPR3.SA']
 
 class VolatilityAnalysis:
 
@@ -233,7 +233,9 @@ class VolatilityAnalysis:
         print(f'# Columns\n')
         for c in list(data.columns):
             print(c)
-
+        
+        # Ativos sem volume com muita vol esta prejudicando a amostra
+        
         data = self.filter(data, 'amostra', 'number', 'above', number=1000)
         data = self.filter(data, 'mm_vol_d', 'mean', 'above')
 
@@ -255,82 +257,3 @@ class VolatilityAnalysis:
 if __name__ == '__main__':
 
     VolatilityAnalysis().analysis_2
-
-"""
-# ANALYSUS_2
-
-# Columns
-
-ticker
-mm_vol_d
-amp_mm_sombras
-amp_mm_sombras_d_alta
-amp_mm_sombras_d_baixa
-mm_d_alta
-mm_d_baixa
-amostra
-
-Amount of initial data: 322
-
-Amount of initial data: 261
-column: mm_vol_d
-mean: 0.04735668589517944
-
-Amount of initial data: 46
-column: amp_mm_sombras_d_alta
-mean: 4.135118361770499
-number mean: 4.135118361770499
-
-Amount of initial data: 34
-column: amp_mm_sombras_d_baixa
-mean: 0.36811370159652523
-number mean: 0.36811370159652523
-
-
-
-      ticker  mm_vol_d  amp_mm_sombras  amp_mm_sombras_d_alta  amp_mm_sombras_d_baixa  mm_d_alta  mm_d_baixa  amostra predominancia
-0   BGIP4.SA  0.055763        0.244610               0.650293                0.108625   0.323411    0.293644     1243           Buy
-1   BRKM3.SA  0.076503        0.581503               0.990000                0.278916   0.422830    0.563505     1244          Sell
-2   CEEB3.SA  0.097058        0.293682               1.033250                0.367128   0.225080    0.156752     1244           Buy
-3   CSRN3.SA  0.086549        0.175768               0.758980                0.191905   0.205149    0.101368     1243           Buy
-4   CVCB3.SA  0.050406        0.325932               0.549775                0.164587   0.419614    0.563505     1244          Sell
-5   EKTR4.SA  0.053762        0.176688               0.952816                0.140743   0.165595    0.118971     1244           Buy
-6   GFSA3.SA  0.104489        0.681963               1.368007                0.251146   0.378617    0.591640     1244          Sell
-7   GOLL4.SA  0.048650        0.391841               0.679481                0.172478   0.434084    0.554662     1244          Sell
-8   JFEN3.SA  0.055410        0.321865               0.871747                0.155808   0.266881    0.492765     1244          Sell
-9   LUXM4.SA  0.050523        0.094644               0.332404                0.188500   0.230088    0.088496     1243           Buy
-10  MNPR3.SA  0.056058        0.283620               0.447357                0.144110   0.493162    0.411102     1243           Buy
-11  OSXB3.SA  0.048304        0.267412               0.539226                0.111103   0.373794    0.561093     1244          Sell
-12  RCSL4.SA  0.101383        0.409356               0.869479                0.192996   0.317524    0.537781     1244          Sell
-13  SCAR3.SA  0.055338        0.550707               0.864694                0.248844   0.498392    0.459003     1244           Buy
-14  SNSY3.SA  0.055129        0.230297               1.112476                0.192128   0.168810    0.200161     1244          Sell
-15  TEKA4.SA  0.087715        0.441247               0.884420                0.265561   0.395012    0.329847     1243           Buy
-16  TELB4.SA  0.109285        0.497283               1.008475                0.206653   0.368971    0.576367     1244          Sell
-17  VIVR3.SA  0.075937        0.446994               1.033824                0.150979   0.323151    0.552251     1244          Sell
-18  AZUL4.SA  0.068754        0.594075               0.986772                0.292861   0.433280    0.556270     1244          Sell
-19  FIEI3.SA  0.068786        0.188481               1.062102                0.204692   0.156752    0.104502     1244           Buy
-
-
-
-      ticker  maximum_amount_of_data_available  lest_price mean_volume
-0   BGIP4.SA                              4094   22.080000    1.06e+03
-1   BRKM3.SA                              5453   18.330000    1.29e+04 < 
-2   CEEB3.SA                              6150   39.500000    5.00e+02
-3   CSRN3.SA                              6149   23.030001    4.76e+02
-4   CVCB3.SA                              2622    1.990000    6.69e+06
-5   EKTR4.SA                              6150   39.549999    3.27e+02
-6   GFSA3.SA                              5206    3.420000    4.94e+05
-7   GOLL4.SA                              4982    1.120000    3.97e+06
-8   JFEN3.SA                              6150    0.520000    9.99e+03
-9   LUXM4.SA                              4094   13.990000    1.65e+03
-10  MNPR3.SA                              6149   11.400000    8.36e+03
-11  OSXB3.SA                              3642    3.930000    1.89e+04
-12  RCSL4.SA                              6146    1.170000    6.65e+04
-13  SCAR3.SA                              6150   23.670000    2.49e+04
-14  SNSY3.SA                              4308   12.050000    4.75e+02
-15  TEKA4.SA                              6149   30.900000    2.28e+03
-16  TELB4.SA                              4094    8.890000    8.09e+06
-17  VIVR3.SA                              4233    2.350000    1.53e+05
-18  AZUL4.SA                              1797    7.540000    7.80e+06 < 
-19  FIEI3.SA                              4264   10.500000    1.01e+03
-"""
