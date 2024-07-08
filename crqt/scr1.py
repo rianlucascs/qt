@@ -5,13 +5,18 @@ from data import Market
 
 from strats.template import Template
 
+ticker = 'arzz3.sa'
+start = '2013-06-15'
+end='2023-06-15'
+feat = [12, 18]
+data = Template(ticker, start, end, feat).result_model_after_creation
+data_metric = Template(ticker, start, end, feat).model_result_during_creation
 
-data = Template('azul4.sa', '2017-04-11', '2023-06-15', [77, 80]).result_model_after_creation
-
-print(data[0])
+print(data_metric[1])
 
 import matplotlib.pyplot as plt
-plt.plot(data[0]['retorno_modelo'])
+data[0]['retorno'].cumsum().plot(secondary_y=True)
+data[0]['retorno_modelo'].plot()
 plt.show()
 
 # data = data.reset_index()

@@ -67,7 +67,7 @@ class FeaturesManagement:
         self.features = features
         self.list_features = ListFeatures(features).number()
         self.name = ticker.upper().split('.')[0]
-        self._path_results = f'{path[0]}\\data\\features\\results'
+        self._path_results = f'{path[0]}\\data\\scr2'
         self.name_config_model = ' '.join(list(map(str, config_model.values())))
 
     def writing_json(self, path, data):
@@ -122,7 +122,6 @@ class FeaturesManagement:
             file = None
 
         metric = lambda f: Template(self.ticker, self.start, self.end, f, self.column, self.name_model, self.config_model).model_result_during_creation[1]
-        s = lambda x: x.replace(',', '.')
         for i, f in enumerate(self.features):
             stdout.write('\r' + f'{i:,.0f} / {len(self.features):,.0f}')
             if not all(isinstance(elem, list) for elem in self.features):
@@ -182,9 +181,10 @@ if __name__ == '__main__':
     CombinationsByElementQuantity.message()
 
     k = 2
-    ticker = 'azul4.sa'
+    ticker = 'arzz3.sa'
 
-    start = start_date_ticker(ticker)
+    # start = start_date_ticker(ticker)
+    start = '2013-06-15'
     end='2023-06-15'
 
     # features=inventory_features()
