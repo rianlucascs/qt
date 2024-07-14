@@ -8,7 +8,7 @@ from strats.template import Template
 ticker = 'arzz3.sa'
 start = '2013-06-15'
 end='2023-06-15'
-feat = [12, 18]
+feat = [52, 82]
 data = Template(ticker, start, end, feat).result_model_after_creation
 data_metric = Template(ticker, start, end, feat).model_result_during_creation
 

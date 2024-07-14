@@ -7,6 +7,7 @@
 
 # Objetivo
 
+- Filtrar combinações iniciais de features
  
 """
 

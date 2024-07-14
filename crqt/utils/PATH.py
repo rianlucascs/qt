@@ -1,3 +1,5 @@
+# starts.template
+
 from sys import path
 
 CRQT_FOLDERS = [
