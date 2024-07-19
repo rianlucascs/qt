@@ -1,34 +1,75 @@
 from utils import PATH
-
-from data import Market
-
-
 from strats.template import Template
+from numpy import float64
+from utils.graphics import Graphic
+from pandas import set_option
 
-ticker = 'arzz3.sa'
-start = '2013-06-15'
-end='2023-06-15'
-feat = [52, 82]
-data = Template(ticker, start, end, feat).result_model_after_creation
-data_metric = Template(ticker, start, end, feat).model_result_during_creation
+class Infos(Template):
+    
+    def graphic(self, dataB):
+        pb = dataB[0].reset_index()
+        Graphic(pb, 'Date', ['adj_close', 'retorno_modelo']).scale()
 
-print(data_metric[1])
+    def metrics(self, dataA, dataB):
 
-import matplotlib.pyplot as plt
-data[0]['retorno'].cumsum().plot(secondary_y=True)
-data[0]['retorno_modelo'].plot()
-plt.show()
+        ma = dataA[1]
+        mb = dataB[1]
 
-# data = data.reset_index()
+        labels = ['Acurácia Treino', 'Acurácia Test', 'Percentual Dias Positivo Total', 'Percentual Dias Positivo Teste', 
+                  'Dados Perdidos', 'Quantidade de sinais teste (venda, compra)', 'Quantidade de sinais treino (venda, compra)',
+                  'Quantidade de sinais total (venda, compra)', 'Diferência (Acurácia treino - Acurácia teste)',
+                  'Média da série do retorno do modelo', 'Desvio padrão do retorno do modelo']
+    
+        print('\n# MODEL RESULT DURING CREATION\n')
+        for i, item in enumerate(ma):
+            if type(item) is float or type(item) is float64:
+                item = f'{item:.3f}'
+            print(f'{labels[i]}:'.ljust(50), item)
 
-# data['year'] = data['Date'].dt.year
-# data['month'] = data['Date'].dt.month
-# print(data)
-# soma_por_ano_mes = data.groupby(['year', 'month'])['serie_retorno'].sum()
+        labels = ['Quantidade de sinais total (venda, compra)', 'Média da série do retorno do modelo', 
+                  'Desvio padrão do retorno do modelo']
+        print(f'\n# RESULT MODEL AFTER CREATION\n')
+        for i, item in enumerate(mb):
+            if type(item) is float or type(item) is float64:
+                item = f'{item:.3f}'
+            print(f'{labels[i]}:'.ljust(50), item)
 
-# print(soma_por_ano_mes * 100)
-# from pandas import to_datetime
+        pb = dataB[0].reset_index()
+        Graphic(pb, 'Date', ['adj_close', 'retorno_modelo']).scale()
+    
+    def returns(self, dataB, lot):
+        pb = dataB[0].reset_index()
+        pb['year'] = pb['Date'].dt.year
+        pb['month'] = pb['Date'].dt.month
+        sum_per_month = pb.groupby(['year', 'month'])['serie_retorno'].sum()
+        print(round(sum_per_month * lot, 2))
+        sum_per_year = pb.groupby('year')['serie_retorno'].sum()
+        print(round(sum_per_year * lot, 2))
 
-# date = to_datetime('2015-02-02')
-# # print(date)
-# print(data[0].iloc[1])
+    def main(self, lot):
+        data = Template(self.ticker, self.start, self.end, self.features)
+        dataA = data.model_result_during_creation
+        dataB = data.result_model_after_creation
+        self.metrics(dataA, dataB)
+        self.returns(dataB, lot)
+
+if __name__ == '__main__':
+    """
+
+    Objetivo:
+
+    - Visualização resultados
+
+    """
+    
+    set_option('display.max_rows', None)
+
+    ticker = 'azul4.sa'
+    start = '2017-04-11'
+    end = '2023-06-15'
+    features = [134, 138, 58]
+
+    lot = 53
+    
+    infos = Infos(ticker, start, end, features)
+    infos.main(lot)

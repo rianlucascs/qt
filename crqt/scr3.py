@@ -1,22 +1,4 @@
 
-
-"""
-# scr3
-
-# Descrição
-
-- Loop em todas as ações a vista da bolsa
-- Download série ativo
-- Aplica regras e retorna métricas para filtro 
-
-# Objetivo
-
-- Criar metricas para avaliação da volatilidade,
-- amplitude dos movimentos diários e refinar estratégias
-- com base no comportamento predominante do ativo
- 
-"""
-
 from yfinance import download
 from tools.create_list_tickers import TickersMt5
 from numpy import where
@@ -125,4 +107,20 @@ class VolatilityCreateData:
             print('end.')
 
 if __name__ == '__main__':
+    """
+    # scr3
+
+    # Descrição
+
+    - Loop em todas as ações a vista da bolsa
+    - Download série ativo
+    - Aplica regras e retorna métricas para filtro 
+
+    # Objetivo
+
+    - Criar metricas para avaliação da volatilidade,
+    - amplitude dos movimentos diários e refinar estratégias
+    - com base no comportamento predominante do ativo
+    
+    """
     VolatilityCreateData().main()

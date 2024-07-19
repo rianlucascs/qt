@@ -1,30 +1,3 @@
-"""
-# scr2
-
-# Descrição
-
-- Gerar combinações de features 
-- Armazenar a metrica do treinamento e o teste do modelo
-- Sistema padronizado de diretórios e arquivos
-
-# Ojetivo
-
-- Encontrar combinações de 2 features para iniciar o processo de otimização
-- encontrar as melhores features iniciais para cada ativo
-
-# Obs
-
-- Não é feito mais de 2 combinações pq a partir de 3 elementos a quantidade
-- de combinações possíveis é elta.
-
-# Combinações Possíveis em Relação ao Número de Elementos (1 a 158)
-
-2   | 12,403        | Doze Mil, Quatrocentos E Três
-3   | 644,956       | Seiscentos E Quarenta E Quatro Mil, Novecentos E Cinquenta E Seis
-4   | 24,992,045    | Vinte E Quatro Milhões, Novecentos E Noventa E Dois Mil E Quarenta E Cinco
-5   | 769,754,986   | Setecentos E Sessenta E Nove Milhões, Setecentos E Cinquenta E Quatro Mil, Novecentos E Oite
-
-"""
 
 from utils import PATH
 from sys import path
@@ -69,6 +42,8 @@ class FeaturesManagement:
         self.name = ticker.upper().split('.')[0]
         self._path_results = f'{path[0]}\\data\\scr2'
         self.name_config_model = ' '.join(list(map(str, config_model.values())))
+
+        self.writing_txt(f'{self._path_results}\\logs.txt', f'{self.ticker, self.start, self.end}\n')
 
     def writing_json(self, path, data):
         with open(path, 'a') as file:
@@ -162,8 +137,10 @@ def combinations_in_rane(k, x=None, y=None):
 
 class CombinationsByElementQuantity:
 
-    def message():
-        print(20*'\n'+f'# Combinações Possíveis em Relação ao Número de Elementos (1 a {len(inventory_features())+1})\n')
+    def message(ticker, start, end):
+        print(20*'\n')
+        print(f'% ticker: {ticker}\n% start: {start}\n% end: {end}\n')
+        print(f'# Combinações Possíveis em Relação ao Número de Elementos (1 a {len(inventory_features())+1})\n')
         for k in range(2, 6):
             c = number_of_combinations(k=k)
             print(f'{k}'.ljust(3), '|', f'{c:,.0f}'.ljust(13), '|', num2words(c, lang='pt_BR').title())
@@ -176,23 +153,50 @@ def start_date_ticker(ticker):
 if __name__ == '__main__':
 
     """
-    Cria combinações com as features disponíveis
+    # scr2
+
+    # Descrição
+
+    - Gerar combinações de features 
+    - Armazenar a metrica do treinamento e o teste do modelo
+    - Sistema padronizado de diretórios e arquivos
+
+    # Ojetivo
+
+    - Encontrar combinações de 2 features para iniciar o processo de otimização
+    - encontrar as melhores features iniciais para cada ativo
+
+    # Obs
+
+    - Não é feito mais de 2 combinações pq a partir de 3 elementos a quantidade
+    - de combinações possíveis é elta.
+
+    # Combinações Possíveis em Relação ao Número de Elementos (1 a 158)
+
+    2   | 12,403        | Doze Mil, Quatrocentos E Três
+    3   | 644,956       | Seiscentos E Quarenta E Quatro Mil, Novecentos E Cinquenta E Seis
+    4   | 24,992,045    | Vinte E Quatro Milhões, Novecentos E Noventa E Dois Mil E Quarenta E Cinco
+    5   | 769,754,986   | Setecentos E Sessenta E Nove Milhões, Setecentos E Cinquenta E Quatro Mil, Novecentos E Oite
+
     """
-    CombinationsByElementQuantity.message()
 
     k = 2
-    ticker = 'arzz3.sa'
 
     # start = start_date_ticker(ticker)
-    start = '2013-06-15'
-    end='2023-06-15'
+
+    ticker = 'arzz3.sa'
+    start = '2014-01-15'
+    end = '2024-01-15'
 
     # features=inventory_features()
     features=combinations_in_rane(k=k)
 
+    CombinationsByElementQuantity.message(ticker, start, end)
     FeaturesManagement(
         ticker=ticker, 
         start=start,
         end=end,
         features=features
         ).main()
+    
+

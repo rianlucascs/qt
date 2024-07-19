@@ -140,9 +140,13 @@ class Template:
         split_data = self._split_data(data)
         coef = self._get_coef
         if type(coef) == tuple:
-            return coef
-        predict_train = coef.predict(split_data[0][split_data[0].columns[5:]])
-        predict_test = coef.predict(split_data[1][split_data[1].columns[5:]])
+            return ('', 'ValueError')
+        try:
+            predict_train = coef.predict(split_data[0][split_data[0].columns[5:]])
+            predict_test = coef.predict(split_data[1][split_data[1].columns[5:]])
+        except ValueError:
+            return ('', 'ValueError')
+        
         split_data[0]['previsto'] = predict_train
         split_data[1]['previsto'] = predict_test
         data = self._processes_result(split_data)
@@ -154,7 +158,7 @@ class Template:
         return [
             self._number_of_signals(data, None),
             self._mean_serie_retorno(data),
-            self._std_serie_retorno(data)
+            self._std_serie_retorno(data),
         ]
 
     @property

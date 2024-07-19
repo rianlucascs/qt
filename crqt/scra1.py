@@ -1,15 +1,3 @@
-"""
-# scra1
-
-# Descrição
-
-- Processa dados criados pelo scr2
-
-# Objetivo
-
-- Filtrar combinações iniciais de features
- 
-"""
 
 from warnings import filterwarnings
 from sys import path
@@ -48,8 +36,9 @@ class GetData:
                     if row == '':
                         break
                     f = list(map(int,row.split('% ')[0][2:][:-1].split(', ')))
-                    metrics = [f] + eval(row.split('% ')[1])
-                    self.data.append(metrics)
+                    if not 'ValueError' in row:
+                        metrics = [f] + eval(row.split('% ')[1])
+                        self.data.append(metrics)
         return self.data
 
     def df(self):
@@ -57,8 +46,6 @@ class GetData:
         return df
     
 class Filters:
-    
-
 
     @staticmethod
     def A(data):
@@ -76,9 +63,9 @@ class Filters:
         print(f'Qtd.Data (A): {len(data)}')
         return data
     
-    def B(data):
+    def B(data, overfitting=3):
         data['Column10'] = data[['Column10']].astype(float)
-        data = data.query('Column10 <= 3')
+        data = data.query(f'Column10 <= {overfitting}')
         print(f'Qtd.Data (B): {len(data)}')
         return data
     
@@ -105,30 +92,42 @@ class Analysis(GetData):
     def main(self):
         data = GetData(self.ticker, self.start, self.end, self.column, self.k).df().reset_index()
         data = Filters.A(data)  
-        data = Filters.B(data)
+        data = Filters.B(data, overfitting=3)
         data = Filters.C(data)
         data = Filters.D(data)
         data = Filters.E(data)
-        print(data[['index', 'Column1', 'Column2', 'Column3', 'Column4', 'Column5', 'Column6']])
+        print(data)
         print(list(data.columns))
         return data
 
 if __name__ == '__main__':     
 
+    """
+    # scra1
+
+    # Descrição
+
+    - Processa dados criados pelo scr2
+
+    # Objetivo
+
+    - Filtrar combinações iniciais de features
+    
+    """
+
     ticker = 'arzz3.sa'
     start = '2013-06-15'
-    end='2023-06-15'
+    end = '2023-06-15'
+
     column = 'Adj Close'
 
     data = Analysis(ticker, start=start, end=end, column=column, k=2).main()
 
 
 """
-Qtd.Data (A): 1761
-Qtd.Data (B): 360
-Qtd.Data (C): 62
-Qtd.Data (D): 31
-Qtd.Data (E): 15
+ticker = 'arzz3.sa'
+start = '2013-06-15'
+end='2023-06-15'
 
        index    Column1    Column2    Column3   Column4   Column5  Column6
 8422    8422   [69, 93]  55.169418  53.258036  0.569318  0.571677     -183
@@ -147,6 +146,37 @@ Qtd.Data (E): 15
 6762    6762   [52, 82]  52.886248  51.401869  0.591759  0.583192     -130
 1678    1678   [12, 18]  54.995871  53.140496  0.591736  0.587944      -64
 
-['index', 'Column1', 'Column2', 'Column3', 'Column4', 'Column5', 'Column6', 
-'Column7', 'Column8', 'Column9', 'Column10', 'Column11', 'Column12']
+
+ticker = 'rent3.sa'
+start = '2018-10-15'
+end='2023-10-15'
+
+      index   Column1    Column2    Column3   Column4   Column5  Column6
+5165   5165  [38, 60]  57.815126  55.311973  0.561921  0.574790      -53
+5166   5166  [38, 61]  57.815126  55.311973  0.561921  0.574790      -53
+1720   1720  [12, 60]  55.887231  53.322259  0.602990  0.600332      -36
+1721   1721  [12, 61]  55.906822  53.166667  0.603333  0.602329      -40 
+
+
+ticker = 'romi3.sa'
+start = '2010-06-15'
+end='2020-06-15'
+
+      index    Column1    Column2    Column3   Column4   Column5  Column6
+5139   5139  [40, 117]  56.593407  49.734889  0.595440  0.570055     -595
+4737   4737   [37, 40]  57.306122  50.857143  0.617395  0.606531      -32
+2964   2964   [22, 67]  55.899420  50.435624  0.636496  0.631528     -415
+
+
+ticker = 'romi3.sa'
+start = '2007-06-15'
+end='2017-06-15'
+
+       index     Column1    Column2    Column3   Column4   Column5  Column6
+2848    2848    [21, 79]  57.493857  51.599672  0.501025  0.522523      -35
+2846    2846    [21, 77]  57.009346  51.744681  0.527435  0.534410     -123
+2852    2852    [21, 83]  57.737105  51.623647  0.527893  0.534942      -72
+2796    2796    [21, 27]  57.083679  51.449876  0.529217  0.536868      -61
+2826    2826    [21, 57]  57.248157  51.189500  0.535465  0.548731      -35
+2825    2825    [21, 56]  57.166257  51.189500  0.535875  0.549550      -35
 """

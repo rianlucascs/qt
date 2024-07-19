@@ -43,7 +43,7 @@ class Graphic:
         # Adicionando a primeira série no primeiro eixo y (esquerdo)
         fig.add_trace(go.Scatter(x=self.data[self.x], y=self.data[self.y[0]], mode='lines', name=self.y[0]))
         
-        fig.add_trace(go.Scatter(x=self.data[self.x], y=self.data[self.y[2]], mode='lines', name=self.y[0]))
+        # fig.add_trace(go.Scatter(x=self.data[self.x], y=self.data[self.y[2]], mode='lines', name=self.y[2]))
         
         # Adicionando a segunda série no segundo eixo y (direito)
         fig.add_trace(go.Scatter(x=self.data[self.x], y=self.data[self.y[1]], mode='lines', name=self.y[1], yaxis='y2'))
