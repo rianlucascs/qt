@@ -1,13 +1,13 @@
-ticker = 'azul4.sa',
-start = '2017-04-11',
-end = '2023-06-15',
-features = [134, 138, 58],
+ticker = 'azul4.sa'
+start = '2017-04-11'
+end = '2023-06-15'
+features = [134, 138, 58]
 
 
-ticker = 'hype3.sa',
-start = '2013-06-15',
-end = '2023-06-15',
-features = [30, 64, 2],
+ticker = 'hype3.sa'
+start = '2013-06-15'
+end = '2023-06-15'
+features = [30, 64, 2]
 
 
 ticker = 'arzz3.sa'

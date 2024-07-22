@@ -99,10 +99,10 @@ if __name__ == '__main__':
     features = [30, 64, 2]
     
     projected = 2
-    max_loss = 100
-    min_return_based_on_risk = 20
-    capital_available_for_allocation = 17000
-    number_of_actove_strategies = 3
+    max_loss = 200
+    min_return_based_on_risk = 40
+    capital_available_for_allocation = 17500
+    number_of_actove_strategies = 2
 
     risk = Risk(ticker, start, end, features, projected, max_loss, min_return_based_on_risk, 
          capital_available_for_allocation, number_of_actove_strategies)

@@ -25,19 +25,23 @@ class AnalyzesTheReturnOfAllStrategies:
             ).result_model_after_creation
         serie2 = data2[0]['serie_retorno'] * kwargs.get('lot2')
         
-        data3 = Template(
-            kwargs.get('ticker3'), 
-            kwargs.get('start3'), 
-            kwargs.get('end3'), 
-            kwargs.get('features3')
-            ).result_model_after_creation
-        serie3 = data3[0]['serie_retorno'] * kwargs.get('lot1')
+        # data3 = Template(
+        #     kwargs.get('ticker3'), 
+        #     kwargs.get('start3'), 
+        #     kwargs.get('end3'), 
+        #     kwargs.get('features3')
+        #     ).result_model_after_creation
+        # serie3 = data3[0]['serie_retorno'] * kwargs.get('lot1')
         
-        data = concat([serie1, serie2, serie3], axis=1)
+        # data = concat([serie1, serie2, serie3], axis=1)
+
+        data = concat([serie1, serie2], axis=1)
 
         data = data.fillna(0)
-        data.columns = ['1', '2', '3']
-        data['return'] = data['1'] + data['2'] + data['3']
+        # data.columns = ['1', '2', '3']
+        data.columns = ['1', '2']
+        # data['return'] = data['1'] + data['2'] + data['3']
+        data['return'] = data['1'] + data['2']
         data = data.reset_index()
 
         data['year'] = data['Date'].dt.year
@@ -68,17 +72,17 @@ if __name__ == '__main__':
         start1 = '2017-04-11',
         end1 = '2023-06-15',
         features1 = [134, 138, 58],
-        lot1 = 61,
+        lot1 = 100,
 
         ticker2 = 'hype3.sa',
         start2 = '2013-06-15',
         end2 = '2023-06-15',
         features2 = [30, 64, 2],
-        lot2 = 93,
+        lot2 = 100,
 
-        ticker3 = 'arzz3.sa',
-        start3 = '2013-06-15',
-        end3 = '2023-06-15',
-        features3 = [12, 18, 96],
-        lot3 = 53
+        # ticker3 = 'arzz3.sa',
+        # start3 = '2013-06-15',
+        # end3 = '2023-06-15',
+        # features3 = [12, 18, 96],
+        # lot3 = 53
     )
