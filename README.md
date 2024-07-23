@@ -1,7 +1,7 @@
 
 # Arquivos
 
->crqt\scr1.py
+> **crqt\scr1.py**
 
 #### Visualizações, Resultados, Estratégia
 
@@ -13,7 +13,7 @@
 
 # 
 
-> crqt\scr2.py
+> **crqt\scr2.py**
 
 #### Criação de dados, Estratégias
 
@@ -23,7 +23,7 @@
 
 # 
 
-> crqt\scr3.py
+> **crqt\scr3.py**
 
 #### Criação de dados, Volatilidade, Ativos
 
@@ -41,7 +41,7 @@
 
 # 
 
-> crqt\scr4.py
+> **crqt\scr4.py**
 
 - Analise comportamento estratégias x preço ativo
 
@@ -49,7 +49,7 @@
 
 #
 
-> crqt\scr5.py
+> **crqt\scr5.py**
 
 #### Visualização, Filtro, Otimização
 
@@ -58,7 +58,7 @@
 
 #
 
-> crqt\scr6.py
+> **crqt\scr6.py**
 
 #### Visualização, Risco
 
@@ -72,7 +72,7 @@ Prejuízo máximo esperado, Retorno mínimo esperado, Capital a ser alocado, Nú
 
 #
 
-> crqt\scr7.py
+> **crqt\scr7.py**
 
 #### Visualização, Estratégias
 
