@@ -60,6 +60,7 @@ class Infos(Template):
         self.features_serie(dataB)
 
 if __name__ == '__main__':
+
     """
 
     Objetivo:
@@ -70,11 +71,11 @@ if __name__ == '__main__':
     
     set_option('display.max_rows', None)
 
-    ticker = 'hype3.sa'
-    start = '2013-06-15'
+    ticker = 'azul4.sa'
+    start = '2017-04-11'
     end = '2023-06-15'
-    features = [30, 64, 2]
-
+    features = [134, 138, 58]
+    
     lot = 53
     
     infos = Infos(ticker, start, end, features)

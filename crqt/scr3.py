@@ -80,6 +80,17 @@ class DicionaryData:
             'std_volume': self.data['Volume'].std(),
             'mm_volume / std_volume': self.data['Volume'].mean() / self.data['Volume'].std(),
             }
+    
+    """Média voltatilidade diária, média amplitude das sombras,
+    Média amplitude sombras (Alta, Baixa),
+    Percentual dias positivos (Alta, Baixa),
+    Amostra,
+    Último preço,
+    Média volume,
+    Média volume (notação científica),
+    Desvio padrão do volume,
+    Média do volume / Desvio padrão do volume
+    """
 
 class VolatilityCreateData:
     

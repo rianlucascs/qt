@@ -93,10 +93,10 @@ if __name__ == '__main__':
 
     """
 
-    ticker = 'hype3.sa'
-    start = '2013-06-15'
+    ticker = 'azul4.sa'
+    start = '2017-04-11'
     end = '2023-06-15'
-    features = [30, 64, 2]
+    features = [134, 138, 58]
     
     projected = 2
     max_loss = 200
