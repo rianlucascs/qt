@@ -27,7 +27,7 @@
 
 #### Criação de dados, Volatilidade, Ativos
 
-  - Extrai métricas de todas as ações a vista da bolsa e armazena os resultados
+  - Extrai métricas de todas as ações listadas na bolsa e armazena os resultados
 
   - **Metricas:** Média voltatilidade diária, média amplitude das sombras,
     Média amplitude sombras (Alta, Baixa),
@@ -104,4 +104,4 @@ O acesso a cada variável é dado pelo número contido no nome da função
         return M(m)
 - m = série do retorno do ativo
 - t = parâmetro inicial das médias
-- data[f157] = feature157(data['serie_retorno'])
+
