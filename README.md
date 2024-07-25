@@ -1,5 +1,5 @@
 
-# Arquivos
+# Scripts
 
 > **crqt\scr1.py**
 
@@ -79,3 +79,29 @@ Prejuízo máximo esperado, Retorno mínimo esperado, Capital a ser alocado, Nú
 - **Resultados da combinção das estratégias**: Gráfico do retorno e DataFrames do retorno mensal e anual
 
 #
+
+### **Observações**: 
+
+1° 
+
+O acesso a cada variável é dado pelo número contido no nome da função
+
+**Exemplo de feature**
+
+    def feature157(m, t=5):
+        W = lambda x, t=5: x.rolling(t).sum()
+        Q = lambda x, t=5: x.rolling(t).std()
+        R = lambda x, t=5: x.rolling(t).max()
+        T = lambda x, t=5: x.rolling(t).min()
+        E = lambda x, t=5: x.rolling(t).mean()
+        Z = lambda x: ((W(m, 18) ** 3) / (Q(m, 8) ** 2))
+        X = lambda x: (Z(m) + W(Z(m).shift(1), 13))
+        C = lambda x: (R(X(m), 11) - X(m)) + (T(X(m), 3) - X(m))
+        V = lambda x: m / abs(W(m * 2) - C(m))
+        B = lambda x: (E(x, 13).diff() - x * Q(V(x))) / (1-V(x))
+        N = lambda x: B(x) / (1 - abs(B(x) - (B(x) / X(x))))
+        M = lambda x: x / abs(N(x) - (N(x) - W(N(x), 2)))
+        return M(m)
+- m = série do retorno do ativo
+- t = parâmetro inicial das médias
+- data[f157] = feature157(data['serie_retorno'])
